@@ -1,28 +1,35 @@
-// main.ts
 import { createAgent } from "./utils/agent";
 import { AgentExecutor } from "langchain/agents";
 
 async function runWorkflow() {
   try {
+    console.log('Creating agent...');
     const agent = await createAgent();
 
-    // Example usage of AgentExecutor
+    if (!agent) {
+      throw new Error('Failed to create agent.');
+    }
+
+    console.log('Agent created.');
+
     const agentExecutor = new AgentExecutor({
       agent,
-      tools: []
+      tools: [],
+      maxIterations: 5 // Lower the max iterations for initial debugging
     });
 
-    // Example input
+    console.log('Agent Executor created.');
+
+    // Minimal input for initial debugging
     const result = await agentExecutor.invoke({
-      input: "analyze the following website and compress into 3-5 sentences",
-      url: "https://en.wikipedia.org/wiki/Solana_(blockchain_platform)",
+      input: "weather for New York",
       agent_scratchpad: ""
-
     });
-    console.log(result);
+
+    console.log('Agent Output:', result.output);
   } catch (error) {
-    console.log(error);
+    console.error('Error running workflow:', error);
   }
 }
 
-runWorkflow().catch(error => console.log(error))
+runWorkflow().catch(error => console.error('Error starting workflow:', error));

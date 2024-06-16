@@ -1,4 +1,5 @@
 // utils/scraper.ts
+
 import { CheerioWebBaseLoader } from "@langchain/community/document_loaders/web/cheerio";
 import { TavilySearchResults } from "@langchain/community/tools/tavily_search";
 import { OpenAIEmbeddings } from "@langchain/openai";
