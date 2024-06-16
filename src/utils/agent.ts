@@ -7,7 +7,6 @@ import { OllamaFunctions } from "@langchain/community/experimental/chat_models/o
 const mockPromptTemplate = ChatPromptTemplate.fromTemplate(`
   User: {input}
   URL: {url}
-  Agent: {response}
   Scratchpad: {agent_scratchpad}
 `);
 
