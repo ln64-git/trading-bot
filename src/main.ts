@@ -1,3 +1,4 @@
+// main.ts
 import { createAgent } from "./utils/agent";
 import { AgentExecutor } from "langchain/agents";
 
@@ -20,9 +21,9 @@ async function runWorkflow() {
 
     console.log('Agent Executor created.');
 
-    // Minimal input for initial debugging
+    // Improved input to clearly instruct the agent to use StockDataTool
     const result = await agentExecutor.invoke({
-      input: "weather for New York",
+      input: "Fetch stock data for NVDA and tell me if it's a good time to buy.",
       agent_scratchpad: ""
     });
 
@@ -33,3 +34,4 @@ async function runWorkflow() {
 }
 
 runWorkflow().catch(error => console.error('Error starting workflow:', error));
+

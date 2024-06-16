@@ -15,7 +15,7 @@ export const WeatherDataTool = new DynamicStructuredTool({
   func: async ({ city }: { city: string }) => {
     try {
       console.log(`WeatherDataTool invoked with city: ${city}`);
-      const apiKey = 'YOUR_OPENWEATHERMAP_API_KEY'; // Replace with your OpenWeatherMap API key
+      const apiKey = process.env.WEATHER_API_KEY;
       const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`);
       const data = await response.json();
       if (response.ok) {
