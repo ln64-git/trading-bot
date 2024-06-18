@@ -1,4 +1,3 @@
-// main.ts
 import { runWorkflow } from "./workflow/workflow";
 
 function main() {
@@ -13,4 +12,4 @@ function main() {
   runWorkflow(symbol).catch(error => console.error('Error starting workflow:', error));
 }
 
-main()
+main();
