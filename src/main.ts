@@ -1,37 +1,16 @@
 // main.ts
-import { createAgent } from "./utils/agent";
-import { AgentExecutor } from "langchain/agents";
+import { runWorkflow } from "./utils/workflow";
 
-async function runWorkflow() {
-  try {
-    console.log('Creating agent...');
-    const agent = await createAgent();
+function main() {
+  const args = process.argv.slice(2); // Get the command-line arguments, excluding the node executable and script file
 
-    if (!agent) {
-      throw new Error('Failed to create agent.');
-    }
-
-    console.log('Agent created.');
-
-    const agentExecutor = new AgentExecutor({
-      agent,
-      tools: [],
-      maxIterations: 5 // Lower the max iterations for initial debugging
-    });
-
-    console.log('Agent Executor created.');
-
-    // Improved input to clearly instruct the agent to use StockDataTool
-    const result = await agentExecutor.invoke({
-      input: "Fetch stock data for NVDA and tell me if it's a good time to buy.",
-      agent_scratchpad: ""
-    });
-
-    console.log('Agent Output:', result.output);
-  } catch (error) {
-    console.error('Error running workflow:', error);
+  if (args.length !== 1) {
+    console.error('Usage: bun main.js <stock_symbol>');
+    process.exit(1);
   }
+
+  const symbol = args[0].toUpperCase(); // Convert the symbol to uppercase
+  runWorkflow(symbol).catch(error => console.error('Error starting workflow:', error));
 }
 
-runWorkflow().catch(error => console.error('Error starting workflow:', error));
-
+main()
