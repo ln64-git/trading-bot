@@ -8,8 +8,8 @@
   "peerDependencies": {
     "typescript": "^5.4.5"
   },
-  
   "dependencies": {
+    "@alpacahq/typescript-sdk": "^0.0.29-preview",
     "@types/core-js": "^2.5.8",
     "@types/jest": "^29.5.12",
     "jest": "^29.7.0",

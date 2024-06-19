@@ -1,12 +1,17 @@
-// main.ts
+import { runWorkflow } from "./workflow/workflow";
 
-function sum(a: number, b: number): number {
-  return a + b;
-}
+function main() {
+  const args = process.argv.slice(2);
 
-function main(): void {
-  const result = sum(5, 7);
-  console.log(`The sum of 5 and 7 is ${result}`);
+  if (args.length !== 1) {
+    console.error("Usage: bun main.js <stock_symbol>");
+    process.exit(1);
+  }
+
+  const symbol = args[0].toUpperCase();
+  runWorkflow(symbol).catch((error) =>
+    console.error("Error starting workflow:", error)
+  );
 }
 
 main();
