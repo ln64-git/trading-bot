@@ -1,21 +1,30 @@
-import { createClient } from "@alpacahq/typescript-sdk";
-import type { AlpacaError } from "../types/error";
+import axios from "axios";
 
-const client = createClient({
-  key: process.env.ALPACA_API_KEY || "YOUR_API_KEY_ID",
-  secret: process.env.ALPACA_SECRET_KEY || "YOUR_API_SECRET_KEY",
-});
+const ALPACA_API_KEY = process.env.ALPACA_API_KEY || "YOUR_API_KEY_ID";
+const ALPACA_SECRET_KEY =
+  process.env.ALPACA_SECRET_KEY || "YOUR_API_SECRET_KEY";
+const BASE_URL = "https://paper-api.alpaca.markets"; // Use 'https://api.alpaca.markets' for live trading
 
-export async function fetchStockData(symbol: string) {
+async function fetchStockData(symbol: string) {
+  const endpoint = `/v2/assets/${symbol}`;
+
   try {
-    const asset = await client.getAsset({
-      symbol_or_asset_id: symbol,
+    const response = await axios.get(BASE_URL + endpoint, {
+      headers: {
+        "APCA-API-KEY-ID": ALPACA_API_KEY,
+        "APCA-API-SECRET-KEY": ALPACA_SECRET_KEY,
+      },
     });
-    console.log("asset: ", asset);
-    return asset;
+    console.log("asset: ", response.data);
+    return response.data;
   } catch (error: any) {
-    const parsedError = JSON.parse(error.message) as AlpacaError;
-    console.error("Error fetching stock data:", parsedError.message);
-    throw error;
+    const parsedError = error.response ? error.response.data : error.message;
+    console.error(
+      "Error fetching stock data:",
+      parsedError.message || parsedError
+    );
+    throw new Error(parsedError.message || parsedError); // Ensure the error is rethrown
   }
 }
+
+module.exports = { fetchStockData };
