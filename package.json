@@ -11,6 +11,7 @@
   "dependencies": {
     "@alpacahq/typescript-sdk": "^0.0.29-preview",
     "@types/core-js": "^2.5.8",
-    "axios": "^1.7.2"
+    "axios": "^1.7.2",
+    "dotenv": "^16.4.5"
   }
 }

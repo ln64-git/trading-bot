@@ -1,3 +1,4 @@
+// src/main.ts
 import { runWorkflow } from "./workflow/workflow";
 
 function main() {
@@ -10,7 +11,7 @@ function main() {
 
   const symbol = args[0].toUpperCase();
   runWorkflow(symbol).catch((error) =>
-    console.error("Error starting workflow:", error)
+    console.error("Error starting workflow: ", error.message || error)
   );
 }
 

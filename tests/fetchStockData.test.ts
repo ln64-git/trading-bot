@@ -1,9 +1,14 @@
+// tests/fetchStockData.test.ts
 const axios = require("axios");
 const { fetchStockData } = require("../src/function/fetchStockData");
+const dotenv = require("dotenv");
 
+// Mocking axios
 jest.mock("axios");
-
 const mockedAxios = axios;
+
+// Load environment variables from .env file
+dotenv.config({ path: "./.env" });
 
 describe("fetchStockData", () => {
   const symbol = "AAPL";
@@ -20,6 +25,10 @@ describe("fetchStockData", () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
+
+    // Ensure environment variables are set
+    process.env.ALPACA_API_KEY = "AKXXEWUYXVP576ADYRS9";
+    process.env.ALPACA_SECRET_KEY = "Si13vhr9f7layB83UwmG684RKeOGfgkHogenwfZg";
   });
 
   it("should fetch asset data successfully", async () => {
@@ -32,9 +41,8 @@ describe("fetchStockData", () => {
       `https://paper-api.alpaca.markets/v2/assets/${symbol}`,
       {
         headers: {
-          "APCA-API-KEY-ID": process.env.ALPACA_API_KEY || "YOUR_API_KEY_ID",
-          "APCA-API-SECRET-KEY":
-            process.env.ALPACA_SECRET_KEY || "YOUR_API_SECRET_KEY",
+          "APCA-API-KEY-ID": process.env.ALPACA_API_KEY,
+          "APCA-API-SECRET-KEY": process.env.ALPACA_SECRET_KEY,
         },
       }
     );
@@ -52,9 +60,8 @@ describe("fetchStockData", () => {
       `https://paper-api.alpaca.markets/v2/assets/${symbol}`,
       {
         headers: {
-          "APCA-API-KEY-ID": process.env.ALPACA_API_KEY || "YOUR_API_KEY_ID",
-          "APCA-API-SECRET-KEY":
-            process.env.ALPACA_SECRET_KEY || "YOUR_API_SECRET_KEY",
+          "APCA-API-KEY-ID": process.env.ALPACA_API_KEY,
+          "APCA-API-SECRET-KEY": process.env.ALPACA_SECRET_KEY,
         },
       }
     );

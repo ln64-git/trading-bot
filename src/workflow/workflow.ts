@@ -1,5 +1,5 @@
+// workflow/workflow.ts
 import { fetchStockData } from "../function/fetchStockData";
-import type { AlpacaError } from "../types/error";
 
 export async function runWorkflow(symbol: string) {
   try {
@@ -7,8 +7,7 @@ export async function runWorkflow(symbol: string) {
     console.log("stockMetrics: ", stockMetrics);
     return stockMetrics;
   } catch (error: any) {
-    const parsedError = JSON.parse(error.message) as AlpacaError;
-    console.error("Error running workflow:", parsedError.message);
-    throw error;
+    console.error(`Error running workflow: ${error.message || error}`);
+    throw new Error(error.message || error);
   }
 }
