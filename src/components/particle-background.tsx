@@ -1,4 +1,3 @@
-// ParticlesComponent.tsx
 "use client";
 import React, { useCallback } from "react";
 import { Particles } from "react-tsparticles";
@@ -7,12 +6,11 @@ import { Engine } from "tsparticles-engine";
 
 const ParticleBackground = () => {
   const particlesInit = useCallback(async (engine: Engine) => {
-    // console.log(engine);
     await loadSlim(engine);
   }, []);
 
   return (
-    <>
+    <div className="absolute top-0 left-0 w-full h-full z-10">
       <Particles
         id="tsparticles"
         init={particlesInit}
@@ -57,8 +55,7 @@ const ParticleBackground = () => {
           detectRetina: true,
         }}
       />
-      <div className="absolute top-0 left-0 w-full h-full bg-white bg-opacity-10 backdrop-blur-lg"></div>
-    </>
+    </div>
   );
 };
 

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import ParticleBackground from "@/components/particle-background";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,7 +17,17 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={`${inter.className} relative`}>
+        <ParticleBackground />
+        <div className="absolute top-0 left-0 w-full h-screen bg-black bg-opacity-10 backdrop-blur-lg z-20"></div>
+        <div className="flex w-full h-screen absolute top-0 left-0 z-30">
+          <div className="flex-1 bg-red-950 h-full hidden sm:block">awd</div>
+          <div className="flex-1 bg-green-950 h-full sm:flex-1 sm:h-full sm:w-full">
+            awd
+          </div>
+        </div>
+        {children}
+      </body>
     </html>
   );
 }
