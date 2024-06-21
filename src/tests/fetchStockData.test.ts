@@ -1,11 +1,11 @@
 // tests/fetchStockData.test.ts
-const axios = require("axios");
-const { fetchStockData } = require("../src/function/fetchStockData");
-const dotenv = require("dotenv");
+import { fetchStockData } from "@/functions/fetchStockData";
+import axios from "axios";
+import dotenv from "dotenv";
 
 // Mocking axios
 jest.mock("axios");
-const mockedAxios = axios;
+const mockedAxios = axios as jest.Mocked<typeof axios>;
 
 // Load environment variables from .env file
 dotenv.config({ path: "./.env" });

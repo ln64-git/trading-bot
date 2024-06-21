@@ -1,5 +1,5 @@
 // src/workflow/workflow.ts
-import { fetchStockData } from "../function/fetchStockData";
+import { fetchStockData } from "../functions/fetchStockData";
 
 export async function runWorkflow(symbol: string) {
   try {
