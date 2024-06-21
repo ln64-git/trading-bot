@@ -25,7 +25,6 @@ export default function RootLayout({
         <div className="flex w-full h-screen absolute top-0 left-0 z-30 p-2">
           <div className="bg-gray-700 bg-opacity-10 min-w-[300px] max-w-[600px] h-full rounded-tl-md rounded-bl-md hidden sm:flex flex-col justify-between">
             <div className="flex flex-col space-y-2 overflow-y-auto mt-4">
-              
               <AgentCard />
             </div>
             <div>
