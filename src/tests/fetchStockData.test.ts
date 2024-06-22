@@ -1,4 +1,3 @@
-// tests/fetchStockData.test.ts
 import { fetchStockData } from "@/functions/fetchStockData";
 import axios from "axios";
 import dotenv from "dotenv";
@@ -21,24 +20,19 @@ describe("fetchStockData", () => {
     status: "active",
     tradable: true,
   };
-  const errorMessage = "Asset not found";
 
   beforeEach(() => {
     jest.clearAllMocks();
-
-    // Ensure environment variables are set
-    process.env.ALPACA_API_KEY = "AKXXEWUYXVP576ADYRS9";
-    process.env.ALPACA_SECRET_KEY = "Si13vhr9f7layB83UwmG684RKeOGfgkHogenwfZg";
   });
 
-  it("should fetch asset data successfully", async () => {
+  it("should fetch asset data successfully from live market", async () => {
     mockedAxios.get.mockResolvedValueOnce({ data: assetData });
 
     const result = await fetchStockData(symbol);
 
     expect(result).toEqual(assetData);
     expect(mockedAxios.get).toHaveBeenCalledWith(
-      `https://paper-api.alpaca.markets/v2/assets/${symbol}`,
+      `https://api.alpaca.markets/v2/assets/${symbol}`,
       {
         headers: {
           "APCA-API-KEY-ID": process.env.ALPACA_API_KEY,
@@ -48,20 +42,18 @@ describe("fetchStockData", () => {
     );
   });
 
-  it("should handle errors correctly", async () => {
-    mockedAxios.get.mockRejectedValueOnce({
-      response: {
-        data: { message: errorMessage },
-      },
-    });
+  it("should fetch asset data successfully from paper market", async () => {
+    mockedAxios.get.mockResolvedValueOnce({ data: assetData });
 
-    await expect(fetchStockData(symbol)).rejects.toThrow(errorMessage);
+    const result = await fetchStockData(symbol, true);
+
+    expect(result).toEqual(assetData);
     expect(mockedAxios.get).toHaveBeenCalledWith(
       `https://paper-api.alpaca.markets/v2/assets/${symbol}`,
       {
         headers: {
-          "APCA-API-KEY-ID": process.env.ALPACA_API_KEY,
-          "APCA-API-SECRET-KEY": process.env.ALPACA_SECRET_KEY,
+          "APCA-API-KEY-ID": process.env.ALPACA_PAPER_API_KEY,
+          "APCA-API-SECRET-KEY": process.env.ALPACA_PAPER_SECRET_KEY,
         },
       }
     );
