@@ -14,14 +14,20 @@ export default function AgentCard() {
   }, []);
 
   return (
-    <div className="flex items-center justify-center h-full overflow-hidden">
-      <button className="h-[68px] bg-gray-700 bg-opacity-10 text-gray-400 hover:text-gray-300 font-semibold px-4 rounded-lg shadow-lg hover:bg-gray-600 hover:bg-opacity-10 focus:outline-none transition ease-in-out duration-300 transform hover:scale-105 w-full mx-2 my-1 flex items-center overflow-hidden">
-        <div className="flex justify-center items-center pr-4 w-10 h-10">
+    <div className="flex h-full overflow-hidden">
+      <button
+        className={`relative h-[68px] bg-gray-700 bg-opacity-10 text-gray-400 hover:text-gray-300 font-semibold rounded-lg shadow-lg hover:bg-gray-600 hover:bg-opacity-10 focus:outline-none transition ease-in-out duration-300 transform hover:scale-105 w-full mx-2 flex items-center`}
+      >
+        <div
+          className={`absolute left-0 top-0 h-full flex justify-center items-center ${
+            isOpen ? "w-14" : "w-14"
+          }`}
+        >
           {isMale ? <MaleIcon /> : <FemaleIcon />}
         </div>
         <div
-          className={`flex flex-col justify-center transition-opacity duration-500 ${
-            isOpen ? "opacity-100" : "opacity-0"
+          className={`flex-grow flex flex-col justify-center transition-opacity duration-500 ${
+            isOpen ? "pl-16 opacity-100" : "opacity-0"
           } overflow-hidden whitespace-nowrap text-ellipsis`}
         >
           {isOpen && (

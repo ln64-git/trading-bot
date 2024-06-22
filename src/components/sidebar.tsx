@@ -11,13 +11,16 @@ const Sidebar: React.FC = () => {
   return (
     <div
       className={`bg-gray-700 bg-opacity-10 ${
-        isOpen ? "w-[300px]" : "w-[72px]"
-      } h-full rounded-tl-md rounded-bl-md hidden sm:flex flex-col justify-between transition-width duration-300 ease-in-out`}
+        isOpen ? "w-[300px]" : "w-[76px]"
+      } h-full rounded-tl-md rounded-bl-md hidden sm:flex flex-col transition-width duration-300 ease-in-out`}
     >
-      <div className="flex flex-col space-y-1 overflow-y-auto mt-4">
+      <div>
         <StatusCard />
-        <AgentCard />
-        <AgentCard />
+      </div>
+      <div className="flex-grow overflow-y-auto">
+        <div className="space-y-2">
+          <AgentCard />
+        </div>
       </div>
       <div>
         <StartCard />
