@@ -5,7 +5,7 @@ import StartCard from "@/components/start-card";
 import StatusCard from "@/components/status-card";
 import useSidebarStore from "@/store/store";
 
-const Sidebar: React.FC = () => {
+export default function Sidebar() {
   const isOpen = useSidebarStore((state) => state.isOpen);
 
   return (
@@ -27,6 +27,4 @@ const Sidebar: React.FC = () => {
       </div>
     </div>
   );
-};
-
-export default Sidebar;
+}
