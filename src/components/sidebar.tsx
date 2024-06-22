@@ -10,16 +10,17 @@ const Sidebar: React.FC = () => {
 
   return (
     <div
-      className={`bg-red-700 bg-opacity-10 ${
-        isOpen ? "w-[300px]" : "w-[80px]"
+      className={`bg-gray-700 bg-opacity-10 ${
+        isOpen ? "w-[300px]" : "w-[72px]"
       } h-full rounded-tl-md rounded-bl-md hidden sm:flex flex-col justify-between transition-width duration-300 ease-in-out`}
     >
-      <div className="flex flex-col space-y-2 overflow-y-auto mt-4">
+      <div className="flex flex-col space-y-1 overflow-y-auto mt-4">
         <StatusCard />
-        {isOpen && <AgentCard />}
+        <AgentCard />
+        <AgentCard />
       </div>
       <div>
-        {isOpen && <StartCard />}
+        <StartCard />
       </div>
     </div>
   );
