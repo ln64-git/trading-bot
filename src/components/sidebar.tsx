@@ -3,14 +3,24 @@ import React, { useEffect, useState } from "react";
 import useSidebarStore from "@/store/store";
 import StatusCard from "./status-card";
 import StartCard from "./start-card";
-import { generatedChatList } from "@/utils/utils";
 import ChatCard from "./chat-card";
+import { generatedChatList } from "@/utils/utils";
 
 export default function Sidebar() {
   const isOpen = useSidebarStore((state) => state.isOpen);
   const [chatList, setChatList] = useState<ChatInfo[]>([]);
+  const [error] = useState<string | null>(null);
 
   useEffect(() => {
+    async function fetchChatList() {
+      const response = await fetch("/api/chat-list");
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      const data: ChatInfo[] = await response.json();
+      setChatList(data);
+    }
+    // fetchChatList();
     setChatList(generatedChatList);
   }, []);
 

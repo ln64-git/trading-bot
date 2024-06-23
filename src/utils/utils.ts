@@ -35,7 +35,7 @@ export const generateRandomGender = (): "male" | "female" => {
   return Math.random() > 0.5 ? "male" : "female";
 };
 
-export const generatedChatList: ChatInfo[] = Array.from({ length: 7 }).map(
+export const generatedChatList: ChatInfo[] = Array.from({ length: 4 }).map(
   (_, index) => ({
     agent: {
       color: colors[index % colors.length],
