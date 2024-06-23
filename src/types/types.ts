@@ -1,5 +1,5 @@
 export interface ChatInfo {
-  agent: Agent;
+  agents: Agent[];
   chatHistory: ChatEntry[];
 }
 
