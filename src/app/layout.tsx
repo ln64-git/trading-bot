@@ -1,12 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import ParticleBackground from "@/components/particle-background";
-import AgentCard from "@/components/agent-card";
-import StartCard from "@/components/start-card";
-import StatusCard from "@/components/status-card";
 import Sidebar from "@/components/sidebar";
-import { fetchStockData } from "@/functions/fetchStockData";
 
 const inter = Inter({ subsets: ["latin"] });
 
