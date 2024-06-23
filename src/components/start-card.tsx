@@ -26,7 +26,7 @@ export default function StartCard() {
           </div>
         </button>
         {isOpen && (
-          <button className="w-12 h-12 p-3 bg-gray-700 bg-opacity-10 text-gray-400 hover:text-gray-300 rounded-lg shadow-lg hover:bg-gray-600 hover:bg-opacity-10 transition ease-in-out duration-300 transform hover:scale-105 flex items-center justify-center">
+          <button className="w-12 h-12 p-3 bg-gray-600 bg-opacity-10 text-gray-400 hover:text-gray-300 rounded-lg shadow-lg hover:bg-gray-600 hover:bg-opacity-10 transition ease-in-out duration-300 transform hover:scale-105 flex items-center justify-center">
             <CogIcon />
           </button>
         )}

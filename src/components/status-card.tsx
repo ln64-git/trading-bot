@@ -11,7 +11,7 @@ const StatusCard: React.FC = () => {
     <div className="flex py-2 items-center justify-center h-full">
       <div className="text-gray-400 font-semibold p-2 rounded-lg w-full mx-4 my-1 flex items-center">
         <button
-          className="ml-1 bg-gray-700 bg-opacity-10 rounded-lg mr-6 shadow-lg hover:bg-gray-600 hover:bg-opacity-10 focus:outline-none transition ease-in-out duration-300 transform hover:scale-105"
+          className="ml-[6px] bg-gray-600 bg-opacity-10 rounded-lg mr-6 shadow-lg hover:bg-gray-500 hover:bg-opacity-10 focus:outline-none transition ease-in-out duration-300 transform hover:scale-105"
           onClick={toggleSidebar}
         >
           <Hamburger size={16} />

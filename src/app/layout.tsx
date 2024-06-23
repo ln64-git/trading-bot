@@ -26,7 +26,7 @@ export default function RootLayout({
         <div className="absolute top-0 left-0 w-full h-screen bg-black bg-opacity-10 backdrop-blur-lg z-20"></div>
         <div className="flex w-full h-screen absolute top-0 left-0 z-30 p-2">
           <Sidebar />
-          <div className="flex-1 bg-gray-800 rounded-tr-md rounded-br-md bg-opacity-10 h-full sm:flex-1 sm:h-full sm:w-full py-8 px-4">
+          <div className="flex-1 bg-gray-500 rounded-tr-md rounded-br-md bg-opacity-10 h-full sm:flex-1 sm:h-full sm:w-full py-8 px-4">
             {children}
           </div>
         </div>
