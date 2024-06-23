@@ -35,7 +35,7 @@ export default function Sidebar() {
     <div
       className={`bg-gray-400 bg-opacity-10 ${
         isOpen ? "w-[300px]" : "w-[76px]"
-      } h-full rounded-tl-md rounded-bl-md hidden sm:flex flex-col transition-width duration-300 ease-in-out`}
+      } h-full rounded-tl-md rounded-bl-md flex-col transition-width duration-300 ease-in-out`}
     >
       <div>
         <StatusCard />
