@@ -24,11 +24,11 @@ export default function MaleIcon({ color }: { color: string }) {
         y2="18.098"
         gradientUnits="userSpaceOnUse"
       >
-        <stop offset="0" stop-color={colorGradient[0]}></stop>
-        <stop offset=".289" stop-color={colorGradient[1]}></stop>
-        <stop offset=".593" stop-color={colorGradient[2]}></stop>
-        <stop offset=".841" stop-color={colorGradient[3]}></stop>
-        <stop offset="1" stop-color={colorGradient[4]}></stop>
+        <stop offset="0" stopColor={colorGradient[0]}></stop>
+        <stop offset=".289" stopColor={colorGradient[1]}></stop>
+        <stop offset=".593" stopColor={colorGradient[2]}></stop>
+        <stop offset=".841" stopColor={colorGradient[3]}></stop>
+        <stop offset="1" stopColor={colorGradient[4]}></stop>
       </linearGradient>
       <path
         fill={`url(#${gradientId1})`}
@@ -104,8 +104,8 @@ export default function MaleIcon({ color }: { color: string }) {
         y2="-.326"
         gradientUnits="userSpaceOnUse"
       >
-        <stop offset="0" stop-color={colorGradient[0]} stop-opacity=".4"></stop>
-        <stop offset="1" stop-color={colorGradient[1]} stop-opacity=".3"></stop>
+        <stop offset="0" stopColor={colorGradient[0]} stop-opacity=".4"></stop>
+        <stop offset="1" stopColor={colorGradient[1]} stop-opacity=".3"></stop>
       </linearGradient>
       <path
         fill={`url(#${gradientId2})`}
@@ -119,8 +119,8 @@ export default function MaleIcon({ color }: { color: string }) {
         y2="3.803"
         gradientUnits="userSpaceOnUse"
       >
-        <stop offset="0" stop-color="ivory" stop-opacity=".3"></stop>
-        <stop offset="1" stop-color={colorGradient[4]} stop-opacity=".4"></stop>
+        <stop offset="0" stopColor="ivory" stopOpacity=".3"></stop>
+        <stop offset="1" stopColor={colorGradient[4]} stopOpacity=".4"></stop>
       </linearGradient>
       <path
         fill={`url(#${gradientId3})`}

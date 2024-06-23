@@ -1,3 +1,4 @@
+import { ChatInfo } from "@/types/types";
 import chroma from "chroma-js";
 
 export const colors = [

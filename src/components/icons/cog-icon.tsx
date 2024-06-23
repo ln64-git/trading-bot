@@ -21,9 +21,9 @@ const CogIcon = () => (
       y2="42.297"
       gradientUnits="userSpaceOnUse"
     >
-      <stop offset="0" stop-color="#fce724"></stop>
-      <stop offset=".311" stop-color="#fdbd19"></stop>
-      <stop offset="1" stop-color="#ff6201"></stop>
+      <stop offset="0" stopColor="#fce724"></stop>
+      <stop offset=".311" stopColor="#fdbd19"></stop>
+      <stop offset="1" stopColor="#ff6201"></stop>
     </linearGradient>
     <path
       fill="url(#CMb5y36j1o-KZPf9JW9INa_wuPAd75eU6lM_gr1)"
@@ -107,8 +107,8 @@ const CogIcon = () => (
       y2="30.799"
       gradientUnits="userSpaceOnUse"
     >
-      <stop offset="0" stop-color="#fff" stop-opacity=".4"></stop>
-      <stop offset="1" stop-color="#f4805d" stop-opacity=".3"></stop>
+      <stop offset="0" stopColor="#fff" stopOpacity=".4"></stop>
+      <stop offset="1" stopColor="#f4805d" stopOpacity=".3"></stop>
     </linearGradient>
     <path
       fill="url(#CMb5y36j1o-KZPf9JW9INb_wuPAd75eU6lM_gr2)"
@@ -122,8 +122,8 @@ const CogIcon = () => (
       y2="15.992"
       gradientUnits="userSpaceOnUse"
     >
-      <stop offset="0" stop-color="#f4805d" stop-opacity=".4"></stop>
-      <stop offset="1" stop-color="ivory" stop-opacity=".2"></stop>
+      <stop offset="0" stopColor="#f4805d" stopOpacity=".4"></stop>
+      <stop offset="1" stopColor="ivory" stopOpacity=".2"></stop>
     </linearGradient>
     <path
       fill="url(#CMb5y36j1o-KZPf9JW9INc_wuPAd75eU6lM_gr3)"

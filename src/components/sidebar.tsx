@@ -4,12 +4,12 @@ import useSidebarStore from "@/store/store";
 import StatusCard from "./status-card";
 import StartCard from "./start-card";
 import ChatCard from "./chat-card";
-import { generatedChatList } from "@/utils/utils";
+import { ChatInfo } from "@/types/types";
+
 
 export default function Sidebar() {
   const isOpen = useSidebarStore((state) => state.isOpen);
   const [chatList, setChatList] = useState<ChatInfo[]>([]);
-  const [error] = useState<string | null>(null);
 
   useEffect(() => {
     async function fetchChatList() {
@@ -21,7 +21,7 @@ export default function Sidebar() {
       setChatList(data);
     }
     // fetchChatList();
-    setChatList(generatedChatList);
+    // setChatList(generatedChatList);
   }, []);
 
   return (

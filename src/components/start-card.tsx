@@ -2,14 +2,22 @@ import useSidebarStore from "@/store/store";
 import CogIcon from "@/components/icons/cog-icon";
 import React from "react";
 import PlayIcon from "./icons/play-icon";
+import { runWorkflow } from "@/workflow/workflow";
 
 export default function StartCard() {
   const isOpen = useSidebarStore((state) => state.isOpen);
 
+  const handleClick = async () => {
+    await runWorkflow("AAPL");
+  };
+
   return (
     <div className="flex mx-2 items-center justify-center h-full">
       <div className="flex my-2 items-center w-full space-x-2 relative">
-        <button className="flex-1 bg-green-700 bg-opacity-10 text-green-400 hover:text-green-300 font-semibold py-3 px-2 rounded-lg shadow-lg hover:bg-green-600 hover:bg-opacity-10 transition ease-in-out duration-300 transform hover:scale-105 relative">
+        <button
+          onClick={handleClick}
+          className="flex-1 bg-green-700 bg-opacity-10 text-green-400 hover:text-green-300 font-semibold py-3 px-2 rounded-lg shadow-lg hover:bg-green-600 hover:bg-opacity-10 transition ease-in-out duration-300 transform hover:scale-105 relative"
+        >
           <p
             className={`transition-opacity duration-300 ${
               isOpen ? "opacity-100" : "opacity-0"
