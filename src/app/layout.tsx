@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Sidebar from "@/components/sidebar";
-import dotenv from "dotenv";
 
 const inter = Inter({ subsets: ["latin"] });
 

@@ -1,8 +1,8 @@
 "use client";
 import useSidebarStore from "@/store/store";
 import React from "react";
-import MaleIcon from "./icons/male-icon";
-import FemaleIcon from "./icons/female-icon";
+import MaleIcon from "../icons/male-icon";
+import FemaleIcon from "../icons/female-icon";
 import { ChatInfo } from "@/types/types";
 
 export default function ChatCard({ chat }: { chat: ChatInfo }) {

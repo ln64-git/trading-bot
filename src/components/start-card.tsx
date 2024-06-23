@@ -1,8 +1,8 @@
 import useSidebarStore from "@/store/store";
-import CogIcon from "@/components/icons/cog-icon";
 import React from "react";
-import PlayIcon from "./icons/play-icon";
+import PlayIcon from "../icons/play-icon";
 import { runWorkflow } from "@/workflow/workflow";
+import CogIcon from "@/icons/cog-icon";
 
 export default function StartCard() {
   const isOpen = useSidebarStore((state) => state.isOpen);
