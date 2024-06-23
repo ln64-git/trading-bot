@@ -7,7 +7,6 @@ import FemaleIcon from "./icons/female-icon";
 
 interface Agent {
   color: string;
-  colorGradient: string[];
   gender: "male" | "female";
 }
 
@@ -25,17 +24,9 @@ export default function AgentCard({ agent }: { agent: Agent }) {
           }`}
         >
           {agent.gender === "male" ? (
-            <MaleIcon
-              color={agent.color}
-              colorGradient={agent.colorGradient}
-              gender={agent.gender}
-            />
+            <MaleIcon color={agent.color} />
           ) : (
-            <FemaleIcon
-              color={agent.color}
-              colorGradient={agent.colorGradient}
-              gender={agent.gender}
-            />
+            <FemaleIcon color={agent.color} />
           )}
         </div>
         <div

@@ -5,17 +5,15 @@ import useSidebarStore from "@/store/store";
 import StatusCard from "./status-card";
 import AgentCard from "./agent-card";
 import StartCard from "./start-card";
-import { colors, generateRandomGender, generateShades } from "@/utils/utils";
+import { colors, generateRandomGender } from "@/utils/utils";
 
 interface Agent {
   color: string;
-  colorGradient: string[];
   gender: "male" | "female";
 }
 
 const DEFAULT_AGENT: Agent = {
   color: "#fff",
-  colorGradient: [],
   gender: "male",
 };
 
@@ -27,7 +25,6 @@ export default function Sidebar() {
     const generatedAgents: Agent[] = Array.from({ length: 4 }).map(
       (_, index) => ({
         color: colors[index % colors.length],
-        colorGradient: generateShades(colors[index % colors.length]),
         gender: generateRandomGender(),
       })
     );

@@ -1,7 +1,7 @@
 import chroma from "chroma-js";
 
 export const colors = [
-//   "#fe7f08c0",
+  //   "#fe7f08c0",
   "#fe7d08",
   "#08fe7f",
   "#08bcfe",
@@ -12,7 +12,7 @@ export const colors = [
   "#d908fe",
 ];
 
-export const generateShades = (baseColor: string) => {
+export const generateGradient = (baseColor: string) => {
   try {
     const scale = chroma.scale([baseColor, "#ffffff"]).colors(5);
     return scale;
