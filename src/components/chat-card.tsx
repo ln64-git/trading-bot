@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import MaleIcon from "../icons/male-icon";
 import FemaleIcon from "../icons/female-icon";
 import { ChatEntry, Agent, DatabaseAgent } from "@/types/types";
-import { getAgent } from "@/mongo/service/getAgent";
+import { getAgent } from "@/postgres/service/getAgent";
 
 interface ChatCardProps {
   chat: ChatEntry[];
@@ -14,15 +14,15 @@ export default function ChatCard({ chat }: ChatCardProps) {
   const isOpen = useSidebarStore((state) => state.isOpen);
   const [participants, setParticipants] = useState<DatabaseAgent[]>([]);
 
-  useEffect(() => {
-    async function fetchParticipants() {
-      const ids = Array.from(new Set(chat.flatMap(entry => [entry.sender, entry.receiver]).filter(id => id !== undefined)));
-      const agents = await Promise.all(ids.map(id => getAgent(id!))); // Assume getAgent is a function to fetch agent details
-      setParticipants(agents);
-    }
+  // useEffect(() => {
+  //   async function fetchParticipants() {
+  //     const ids = Array.from(new Set(chat.flatMap(entry => [entry.sender, entry.receiver]).filter(id => id !== undefined)));
+  //     const agents = await Promise.all(ids.map(id => getAgent(id!))); // Assume getAgent is a function to fetch agent details
+  //     setParticipants(agents);
+  //   }
 
-    fetchParticipants();
-  }, [chat]);
+  //   fetchParticipants();
+  // }, [chat]);
 
   return (
     <div className="flex h-full overflow-hidden">

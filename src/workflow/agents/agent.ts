@@ -3,7 +3,7 @@ import { ChatPromptTemplate } from "@langchain/core/prompts";
 import { OllamaFunctions } from "@langchain/community/experimental/chat_models/ollama_functions";
 import { Agent } from "@/types/types";
 import { generateRandomColor, generateRandomGender } from "@/utils/utils";
-import { getChatEntries } from "@/mongo/service/getChatEntries";
+import { getChatEntries } from "@/postgres/service/getChatEntries";
 
 // Mock ChatPromptTemplate with required input variables including URL
 const mockPromptTemplate = ChatPromptTemplate.fromTemplate(`

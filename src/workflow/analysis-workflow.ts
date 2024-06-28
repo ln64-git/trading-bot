@@ -1,11 +1,13 @@
-import { AgentExecutor } from "langchain/agents";
-import { ChatEntry } from "@/types/types";
-import { createAgent } from "./agents/agent";
-import { addAgent } from "@/mongo/service/addAgent";
-import { addChatEntry } from "@/mongo/service/addChatEntry";
-import { getHighestAgentIndex } from "@/utils/utils";
+// server/analysis-workflow.ts
+import { AgentExecutor } from 'langchain/agents';
+import { addChatEntry } from '@/postgres/service/addChatEntry';
+import { addAgent } from '@/postgres/service/addAgent';
+import { createAgent } from './agents/agent';
+import { connectDB, pool } from '@/postgres/connect-db';
 
 export async function runAnalysisWorkflow(symbol: string) {
+  await connectDB(); // Ensure PostgreSQL is connected
+
   // Initialize Agents
   const agent = await createAgent();
   await addAgent(agent);
@@ -24,7 +26,7 @@ export async function runAnalysisWorkflow(symbol: string) {
   console.log(response);
 
   // Save Chat Entry to Database
-  const chatEntry: ChatEntry = {
+  const chatEntry = {
     index: await getHighestAgentIndex(),
     sender: agent.index,
     receiver: undefined,
@@ -37,18 +39,12 @@ export async function runAnalysisWorkflow(symbol: string) {
 
 
 
-// Testing
-// const stockMetrics = await fetchStockData(symbol);
-// const managerMessage = "Give me a financial analysis of the following stock";
-// const managerReply = `Analyzing stock: ${symbol}`;
-
-// Manager delegates responsibilities to agents
-// As each agents communicate with each other, create a Chat Entry
-// Add Chat Entry to database
-
-// await addChatEntry({
-//   index: 0,
-//   sender: agent.index,
-//   message: managerMessage,
-//   timestamp: new Date(),
-// });
+const getHighestAgentIndex = async () => {
+  try {
+    const result = await pool.query('SELECT MAX(index) AS max_index FROM agents');
+    return result.rows[0].max_index || 0;
+  } catch (error) {
+    console.error('Error getting highest agent index:', error);
+    throw new Error('Failed to get highest agent index');
+  }
+};

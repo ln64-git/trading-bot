@@ -1,6 +1,6 @@
 import { AgentDB } from "@/types/types";
-import connectDB from "@/mongo/connect-db";
 import AgentModel from "@/mongo/models/AgentModel";
+import { connectDB } from "../connect-db";
 
 export async function getAgent(id: number): Promise<AgentDB> {
     await connectDB();

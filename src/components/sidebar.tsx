@@ -5,7 +5,7 @@ import StatusCard from "./status-card";
 import StartCard from "./start-card";
 import ConversationCard from "./chat-card";
 import { ChatEntry } from "@/types/types";
-import { getChatEntries } from "@/mongo/service/getChatEntries";
+import { getChatEntries } from "@/postgres/service/getChatEntries";
 
 interface SidebarProps {
   initialChatEntries: ChatEntry[];
@@ -15,18 +15,18 @@ export default function Sidebar({ initialChatEntries }: SidebarProps) {
   const isOpen = useSidebarStore((state) => state.isOpen);
   const [chatList, setChatList] = useState<ChatEntry[]>(initialChatEntries || []);
 
-  useEffect(() => {
-    async function fetchChatList() {
-      try {
-        const chatEntries = await getChatEntries();
-        setChatList(chatEntries);
-      } catch (error) {
-        console.error("Error fetching chat entries:", error);
-      }
-    }
+  // useEffect(() => {
+  //   async function fetchChatList() {
+  //     try {
+  //       const chatEntries = await getChatEntries();
+  //       setChatList(chatEntries);
+  //     } catch (error) {
+  //       console.error("Error fetching chat entries:", error);
+  //     }
+  //   }
 
-    fetchChatList();
-  }, []);
+  //   fetchChatList();
+  // }, []);
 
   return (
     <div className={`bg-gray-400 bg-opacity-10 ${isOpen ? "w-[400px]" : "w-[76px]"} h-full rounded-tl-md rounded-bl-md flex flex-col transition-width duration-300 ease-in-out`}>
@@ -40,7 +40,7 @@ export default function Sidebar({ initialChatEntries }: SidebarProps) {
               <ConversationCard key={index} chat={chatList} />
             ))
           ) : (
-            <p className="text-gray-500 text-center">...</p>
+            <p className="text-gray-500 text-center"></p>
           )}
         </div>
       </div>

@@ -1,7 +1,7 @@
 "use server";
-import connectDB from "@/mongo/connect-db";
 import ChatEntryModel from "@/mongo/models/ChatEntryModel";
 import { ChatEntry } from "@/types/types";
+import { connectDB } from "../connect-db";
 
 export async function getChatEntries(): Promise<ChatEntry[]> {
     await connectDB();

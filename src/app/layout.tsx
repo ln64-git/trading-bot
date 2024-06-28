@@ -14,7 +14,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const chatEntries = await getChatEntries();
-  console.log("Fetched chat entries in layout:", chatEntries); // Add logging here
+  console.log("Fetched chat entries in layout:", chatEntries);
 
   return (
     <html lang="en">
