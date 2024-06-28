@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Sidebar from "@/components/sidebar";
-import { getChatEntries } from "@/mongo/service/getChatEntries";
+import { getChatEntries } from "@/postgres/service/getChatEntries";
 
 export const metadata: Metadata = {
   title: "Create Next App",
