@@ -1,40 +1,54 @@
-import connectDB from "@/mongo/connect-db";
-import { fetchStockData } from "../functions/fetchStockData";
-import ChatEntryModel from "@/mongo/models/ChatEntry";
-
-interface ChatEntry {
-  index: number; // Index of message between sender and receiver
-  sender: string; // Agent sending the message
-  receiver: string; // Agent receiving the message
-  message: string; // Message body
-  timestamp: Date; // Relevant timestamp for each message
-}
-
-async function addChatEntry(chatEntry: ChatEntry) {
-  await connectDB();
-  const newEntry = new ChatEntryModel(chatEntry);
-  await newEntry.save();
-  console.log("Added chat entry:", chatEntry);
-}
+import { AgentExecutor } from "langchain/agents";
+import { ChatEntry } from "@/types/types";
+import { createAgent } from "./agents/agent";
+import { addAgent } from "@/mongo/service/addAgent";
+import { addChatEntry } from "@/mongo/service/addChatEntry";
+import { getHighestAgentIndex } from "@/utils/utils";
 
 export async function runAnalysisWorkflow(symbol: string) {
-  const stockMetrics = await fetchStockData(symbol);
-  console.log("stockMetrics: ", stockMetrics);
+  // Initialize Agents
+  const agent = await createAgent();
+  await addAgent(agent);
 
-  // Initialize chat with Manager Agent
-  const managerMessage = "Give me a financial analysis of the following stock";
-  const managerReply = `Analyzing stock: ${symbol}`;
+  // Initialize Agent Execution
+  const agentExecutor = new AgentExecutor({
+    agent: agent.agent,
+    tools: []
+  });
+  const response = await agentExecutor.invoke({
+    input: "analyze the following website and compress into 3-5 sentences",
+    url: "https://en.wikipedia.org/wiki/Solana_(blockchain_platform)",
+    response: "",
+    agent_scratchpad: ""
+  });
+  console.log(response);
 
-  // Add initial chat entry from user to manager
-  // await addChatEntry({
-  //   index: 0,
-  //   sender: "User",
-  //   receiver: "Manager",
-  //   message: managerMessage,
-  //   timestamp: new Date(),
-  // });
-
-  // Manager delegates responsibilities to agents
-  // As each agents communicate with each other, create a Chat Entry
-  // Add Chat Entry to database
+  // Save Chat Entry to Database
+  const chatEntry: ChatEntry = {
+    index: await getHighestAgentIndex(),
+    sender: agent.index,
+    receiver: undefined,
+    message: response.response,
+    timestamp: new Date(),
+  };
+  await addChatEntry(chatEntry);
 }
+
+
+
+
+// Testing
+// const stockMetrics = await fetchStockData(symbol);
+// const managerMessage = "Give me a financial analysis of the following stock";
+// const managerReply = `Analyzing stock: ${symbol}`;
+
+// Manager delegates responsibilities to agents
+// As each agents communicate with each other, create a Chat Entry
+// Add Chat Entry to database
+
+// await addChatEntry({
+//   index: 0,
+//   sender: agent.index,
+//   message: managerMessage,
+//   timestamp: new Date(),
+// });

@@ -1,18 +1,23 @@
 import mongoose from "mongoose";
-import dotenv from "dotenv";
-
-dotenv.config();
-
-const MONGODB_URI =
-  process.env.MONGODB_URI || "mongodb://localhost:27017/chatdb";
 
 const connectDB = async () => {
+  if (mongoose.connections[0].readyState) {
+    console.log("Already connected to MongoDB");
+    return; // Already connected
+  }
+
   try {
-    await mongoose.connect(MONGODB_URI, {});
-    console.log("MongoDB connected");
+    const mongoUri = process.env.MONGO_URI;
+    if (!mongoUri) {
+      throw new Error("MongoDB connection string (MONGO_URI) is not defined in environment variables");
+    }
+
+    console.log(`Connecting to MongoDB at ${mongoUri}`);
+    await mongoose.connect(mongoUri);
+    console.log("Connected to MongoDB");
   } catch (error) {
-    console.error("MongoDB connection error:", error);
-    process.exit(1);
+    console.error("Error connecting to MongoDB:", error);
+    throw new Error("Failed to connect to MongoDB");
   }
 };
 

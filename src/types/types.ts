@@ -1,22 +1,49 @@
-export interface ChatInfo {
-  agents: Agent[];
-  chatHistory: ChatEntry[];
+import { AgentStep, AgentAction, AgentFinish } from "langchain/agents";
+import { AgentRunnableSequence } from "node_modules/langchain/dist/agents/agent";
+
+export type AgentInstance = AgentRunnableSequence<{ steps: AgentStep[] }, AgentAction | AgentFinish>;
+
+export interface DatabaseAgent {
+  index: number;
+  gender: "male" | "female";
+  color: string;
+  name: string;
+  role: string;
 }
 
-interface ChatEntry {
+export interface Agent {
   index: number;
-  sender: string;
-  reciver: string;
+  gender: "male" | "female";
+  color: string;
+  name: string;
+  role: string;
+  agent: AgentInstance;
+}
+
+export interface AgentDB {
+  index: number;
+  gender: "male" | "female";
+  color: string;
+  name: string;
+  role: string;
+}
+
+export interface ConversationEntry {
+  index: number;
+  agents: number[];
+  entries: ChatEntry[];
+  timestamp: Date;
+}
+
+export interface ChatEntry {
+  index: number;
+  sender?: number;
+  receiver?: number;
   message: string;
   timestamp: Date;
 }
 
-interface Agent {
-  color: string;
-  gender: "male" | "female";
-}
-
-interface StockData {
+export interface StockData {
   id: string;
   class: string;
   exchange: string;
