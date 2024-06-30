@@ -1,5 +1,4 @@
 // import { ChatInfo } from "@/types/types";
-import { getChatEntries } from "@/mongo/service/getChatEntries";
 import chroma from "chroma-js";
 
 export const colors = [
@@ -33,23 +32,11 @@ export const generateRandomColor = (): string => {
   return color;
 };
 
-export const generateRandomGender = (): "male" | "female" => {
-  return Math.random() > 0.5 ? "male" : "female";
-};
-
-export async function getHighestAgentIndex(): Promise<number> {
-  const entries = await getChatEntries();
-  let highestIndex = -1;
-  for (const entry of entries) {
-    if (entry.sender !== undefined && entry.sender > highestIndex) {
-      highestIndex = entry.sender;
-    }
-    if (entry.receiver !== undefined && entry.receiver > highestIndex) {
-      highestIndex = entry.receiver;
-    }
-  }
-  return highestIndex;
+export function generateRandomGender(): "male" | "female" {
+  const genders: ("male" | "female")[] = ["male", "female"];
+  return genders[Math.floor(Math.random() * genders.length)];
 }
+
 
 // export const generatedChatList: ChatInfo[] = Array.from({ length: 4 }).map(
 //   (_, index) => ({

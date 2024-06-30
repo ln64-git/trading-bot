@@ -3,13 +3,16 @@ import useSidebarStore from "@/store/store";
 import PlayIcon from "../icons/play-icon";
 import CogIcon from "@/icons/cog-icon";
 import { runAnalysisWorkflow } from "@/workflow/analysis-workflow";
+import { wipeDatabase } from "@/server/utils/wipeDatabase";
 
 export default function StartCard() {
   const isOpen = useSidebarStore((state) => state.isOpen);
 
   const handleClick = async () => {
     try {
+      // await wipeDatabase();
       await runAnalysisWorkflow("AAPL");
+      console.log("Click Handled.");
     } catch (error) {
       console.error("Error running analysis workflow:", error);
     }

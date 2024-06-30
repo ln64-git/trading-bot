@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Sidebar from "@/components/sidebar";
-import { getChatEntries } from "@/postgres/service/getChatEntries";
+import getChatEntries from "@/server/getChatEntries";
+import getDatabaseAgents from "@/server/getDatabaseAgents";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -14,14 +15,14 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const chatEntries = await getChatEntries();
-  console.log("Fetched chat entries in layout:", chatEntries);
+  const databaseAgents = await getDatabaseAgents();
 
   return (
     <html lang="en">
       <body className="relative">
         <div className="absolute top-0 left-0 w-full h-screen bg-black bg-opacity-10 backdrop-blur-lg z-20"></div>
         <div className="flex w-full h-screen absolute top-0 left-0 z-30 p-2">
-          <Sidebar initialChatEntries={chatEntries} />
+          <Sidebar initialDatabaseAgents={databaseAgents} initialChatEntries={chatEntries} />
           <div className="py-2 bg-gray-500 rounded-tr-md w-full pl-4 px-1 rounded-br-md bg-opacity-10">
             <div className="flex-1 overflow-y-auto h-full py-8">
               {children}

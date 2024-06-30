@@ -5,10 +5,10 @@ export type AgentInstance = AgentRunnableSequence<{ steps: AgentStep[] }, AgentA
 
 export interface DatabaseAgent {
   index: number;
-  gender: "male" | "female";
-  color: string;
   name: string;
   role: string;
+  color: string;
+  gender: "male" | "female";
 }
 
 export interface Agent {
@@ -37,8 +37,8 @@ export interface ConversationEntry {
 
 export interface ChatEntry {
   index: number;
-  sender?: number;
-  receiver?: number;
+  sender?: number | null;
+  receiver?: number | null;
   message: string;
   timestamp: Date;
 }

@@ -3,7 +3,7 @@ import { ChatPromptTemplate } from "@langchain/core/prompts";
 import { OllamaFunctions } from "@langchain/community/experimental/chat_models/ollama_functions";
 import { Agent } from "@/types/types";
 import { generateRandomColor, generateRandomGender } from "@/utils/utils";
-import { getChatEntries } from "@/postgres/service/getChatEntries";
+import { getHighestAgentIndex } from "@/server/utils/getHighestIndex";
 
 // Mock ChatPromptTemplate with required input variables including URL
 const mockPromptTemplate = ChatPromptTemplate.fromTemplate(`
@@ -27,28 +27,19 @@ export async function createAgent(): Promise<Agent> {
 
     const highestIndex = await getHighestAgentIndex();
 
+    const gender = generateRandomGender(); // Ensure this returns "male" or "female"
+    const color = generateRandomColor();
+    const name = `Agent ${highestIndex + 1}`;
+    const role = "Agent Role";
+
     const newAgent: Agent = {
         index: highestIndex + 1,
-        gender: generateRandomGender(),
-        color: generateRandomColor(),
-        name: `Agent ${highestIndex + 1}`,
-        role: "Agent Role",
+        gender,
+        color,
+        name,
+        role,
         agent: agentInstance
     };
 
     return newAgent;
-}
-
-async function getHighestAgentIndex(): Promise<number> {
-    const entries = await getChatEntries();
-    let highestIndex = -1;
-    for (const entry of entries) {
-        if (entry.sender !== undefined && entry.sender > highestIndex) {
-            highestIndex = entry.sender;
-        }
-        if (entry.receiver !== undefined && entry.receiver > highestIndex) {
-            highestIndex = entry.receiver;
-        }
-    }
-    return highestIndex;
 }
