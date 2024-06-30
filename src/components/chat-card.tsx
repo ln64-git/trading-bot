@@ -3,26 +3,20 @@ import useSidebarStore from "@/store/store";
 import React, { useEffect, useState } from "react";
 import MaleIcon from "../icons/male-icon";
 import FemaleIcon from "../icons/female-icon";
-import { ChatEntry, Agent, DatabaseAgent } from "@/types/types";
-import { getAgent } from "@/postgres/service/getAgent";
+import { ChatEntry, DatabaseAgent, ParsedConversation } from "@/types/types";
 
 interface ChatCardProps {
-  chat: ChatEntry[];
+  data: ParsedConversation[];
 }
 
-export default function ChatCard({ chat }: ChatCardProps) {
+export default function ChatCard({ data }: ChatCardProps) {
   const isOpen = useSidebarStore((state) => state.isOpen);
-  const [participants, setParticipants] = useState<DatabaseAgent[]>([]);
 
-  // useEffect(() => {
-  //   async function fetchParticipants() {
-  //     const ids = Array.from(new Set(chat.flatMap(entry => [entry.sender, entry.receiver]).filter(id => id !== undefined)));
-  //     const agents = await Promise.all(ids.map(id => getAgent(id!))); // Assume getAgent is a function to fetch agent details
-  //     setParticipants(agents);
-  //   }
-
-  //   fetchParticipants();
-  // }, [chat]);
+  // Extract the participants and the latest chat entry from the data
+  const participants: DatabaseAgent[] = data.length > 0 ? data[0].agents : [];
+  const latestChatEntry: ChatEntry | undefined = data.length > 0 && data[0].chatEntries.length > 0
+    ? data[0].chatEntries[data[0].chatEntries.length - 1]
+    : undefined;
 
   return (
     <div className="flex h-full overflow-hidden">
@@ -31,7 +25,7 @@ export default function ChatCard({ chat }: ChatCardProps) {
       >
         <div className={`absolute w-14 left-0 top-0 h-full flex justify-center items-center`}>
           {participants[0] && (
-            participants[0].gender === "male" ? (
+            participants[0].gender === "MALE" ? (
               <MaleIcon color={participants[0].color} />
             ) : (
               <FemaleIcon color={participants[0].color} />
@@ -47,6 +41,11 @@ export default function ChatCard({ chat }: ChatCardProps) {
               <p className="text-left text-sm font-light overflow-hidden text-ellipsis">
                 {participants[0].role}
               </p>
+              {latestChatEntry && (
+                <p className="text-left text-xs font-light overflow-hidden text-ellipsis mt-1">
+                  {latestChatEntry.message}
+                </p>
+              )}
             </>
           )}
         </div>

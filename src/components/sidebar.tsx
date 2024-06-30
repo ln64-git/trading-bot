@@ -4,14 +4,14 @@ import useSidebarStore from "@/store/store";
 import StatusCard from "./status-card";
 import StartCard from "./start-card";
 import ConversationCard from "./chat-card";
-import { ChatEntry, DatabaseAgent } from "@/types/types";
+import { ChatEntry, DatabaseAgent, ParsedConversation } from "@/types/types";
 
-interface SidebarProps {
-  initialChatEntries: ChatEntry[];
-  initialDatabaseAgents: DatabaseAgent[];
-}
+type SidebarProps = {
+  initialConversationData: ParsedConversation[];
+};
 
-export default function Sidebar({ initialChatEntries, initialDatabaseAgents }: SidebarProps) {
+
+export default function Sidebar({ initialConversationData }: SidebarProps) {
   const isOpen = useSidebarStore((state) => state.isOpen);
 
   return (
@@ -21,13 +21,13 @@ export default function Sidebar({ initialChatEntries, initialDatabaseAgents }: S
       </div>
       <div className="flex-grow overflow-y-auto">
         <div className="space-y-2">
-          {/* {initialChatEntries.length > 0 ? (
-            initialChatEntries.map((conversation, index) => (
-              <ConversationCard key={index} chat={initialChatEntries} />
+          {initialConversationData.length > 0 ? (
+            initialConversationData.map((conversation, index) => (
+              <ConversationCard key={index} data={initialConversationData} />
             ))
           ) : (
             <p className="text-gray-500 text-center"></p>
-          )} */}
+          )}
         </div>
       </div>
       <div>

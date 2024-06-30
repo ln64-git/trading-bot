@@ -1,11 +1,9 @@
 "use server"
 import { AgentExecutor } from 'langchain/agents';
 import { createAgent } from './agents/agent';
-import { } from '@prisma/client';
+import { AppAgent, ChatEntryPrototype } from '@/types/types';
 import createDatabaseAgent from '@/server/createDatabaseAgent';
 import { createConversation } from '@/server/createConversation';
-import { AppAgent, ChatEntryPrototype } from '@/types/types';
-import createChatEntry from '@/server/createChatEntry';
 
 export async function runWorkflow(symbol: string) {
   // Initialize Agent
@@ -35,7 +33,7 @@ export async function executeTasks(tasks: { agent: AppAgent, instructions: { inp
 
     // Initialize Agent Execution
     const agentExecutor = new AgentExecutor({
-      agent: agent.agent,
+      agent: agent.agentInstance,
       tools: []
     });
     const response = await agentExecutor.invoke(instructions);
@@ -48,7 +46,6 @@ export async function executeTasks(tasks: { agent: AppAgent, instructions: { inp
 
     // Create conversation and chat entry
     await createConversation([databaseAgent.id], [entry]);
-    // await createChatEntry(entry);
     console.log('Created conversation in database.');
   }
 }

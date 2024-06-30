@@ -3,6 +3,8 @@ import "./globals.css";
 import Sidebar from "@/components/sidebar";
 import getChatEntries from "@/server/getChatEntries";
 import getDatabaseAgents from "@/server/getDatabaseAgents";
+import getConversations from "@/server/getConversations";
+import { ChatEntry, Conversation, DatabaseAgent, ParsedConversation } from "@/types/types";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -16,13 +18,43 @@ export default async function RootLayout({
 }) {
   const chatEntries = await getChatEntries();
   const databaseAgents = await getDatabaseAgents();
+  const conversations = await getConversations();
+
+  const parseConversationData = (
+    chatEntries: ChatEntry[],
+    databaseAgents: DatabaseAgent[],
+    conversations: Conversation[]
+  ): ParsedConversation[] => {
+    return conversations.map((conversation) => {
+      const relevantChatEntries = chatEntries.filter(
+        (entry) => entry.conversationId === conversation.id
+      );
+      const relevantAgents = conversation.agents.map((agent) =>
+        databaseAgents.find((dbAgent: DatabaseAgent) => dbAgent.id === agent.id)
+      ).filter((agent): agent is DatabaseAgent => agent !== undefined);
+
+      return {
+        id: conversation.id,
+        agents: relevantAgents,
+        chatEntries: relevantChatEntries,
+      };
+    });
+  };
+
+  const conversationData = parseConversationData(
+    chatEntries,
+    databaseAgents,
+    conversations
+  );
+
+  console.log("conversationData: ", conversationData);
 
   return (
     <html lang="en">
       <body className="relative">
         <div className="absolute top-0 left-0 w-full h-screen bg-black bg-opacity-10 backdrop-blur-lg z-20"></div>
         <div className="flex w-full h-screen absolute top-0 left-0 z-30 p-2">
-          <Sidebar initialDatabaseAgents={databaseAgents} initialChatEntries={chatEntries} />
+          <Sidebar initialConversationData={conversationData} />
           <div className="py-2 bg-gray-500 rounded-tr-md w-full pl-4 px-1 rounded-br-md bg-opacity-10">
             <div className="flex-1 overflow-y-auto h-full py-8">
               {children}
