@@ -7,25 +7,39 @@ generator client {
   provider = "prisma-client-js"
 }
 
+enum Gender {
+  MALE
+  FEMALE
+}
+
 model DatabaseAgent {
-  id     Int    @id @default(autoincrement())
-  gender String
-  color  String
-  name   String
-  role   String
+  id            Int            @id @default(autoincrement())
+  gender        Gender
+  color         String
+  name          String
+  role          String
+  conversations Conversation[]
+
+  @@index([name], name: "idx_agent_name") // Index on name for faster lookups
 }
 
 model ChatEntry {
-  id        Int      @id @default(autoincrement())
-  sender    Int?
-  receiver  Int?
-  message   String
-  timestamp DateTime @default(now())
+  id             Int           @id @default(autoincrement())
+  sender         Int?
+  receiver       Int?
+  message        String
+  timestamp      DateTime      @default(now())
+  conversation   Conversation? @relation(fields: [conversationId], references: [id])
+  conversationId Int?
+
+  @@index([timestamp], name: "idx_chatentry_timestamp") // Index on timestamp for sorting
 }
 
 model Conversation {
-  id        Int      @id @default(autoincrement())
-  agents    Int[]
-  entries   Json[]
-  timestamp DateTime @default(now())
+  id        Int             @id @default(autoincrement())
+  entries   ChatEntry[]
+  timestamp DateTime        @default(now())
+  agents    DatabaseAgent[]
+
+  @@index([timestamp], name: "idx_conversation_timestamp") // Index on timestamp for sorting
 }
