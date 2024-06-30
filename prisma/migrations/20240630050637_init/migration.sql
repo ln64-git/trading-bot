@@ -1,7 +1,6 @@
 -- CreateTable
 CREATE TABLE "Agent" (
     "id" SERIAL NOT NULL,
-    "index" INTEGER NOT NULL,
     "gender" TEXT NOT NULL,
     "color" TEXT NOT NULL,
     "name" TEXT NOT NULL,
@@ -13,7 +12,6 @@ CREATE TABLE "Agent" (
 -- CreateTable
 CREATE TABLE "ChatEntry" (
     "id" SERIAL NOT NULL,
-    "index" INTEGER NOT NULL,
     "sender" INTEGER,
     "receiver" INTEGER,
     "message" TEXT NOT NULL,
@@ -25,7 +23,6 @@ CREATE TABLE "ChatEntry" (
 -- CreateTable
 CREATE TABLE "Conversation" (
     "id" SERIAL NOT NULL,
-    "index" INTEGER NOT NULL,
     "agents" INTEGER[],
     "entries" JSONB[],
     "timestamp" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,

@@ -19,8 +19,8 @@ async function getHighestConversationIndex(): Promise<number> {
     const conversations = await getConversations();
     let highestIndex = -1;
     for (const conversation of conversations) {
-        if (conversation.index > highestIndex) {
-            highestIndex = conversation.index;
+        if (conversation.id > highestIndex) {
+            highestIndex = conversation.id;
         }
     }
     return highestIndex;
@@ -30,8 +30,8 @@ async function getHighestChatEntryIndex(): Promise<number> {
     const entries = await getChatEntries();
     let highestIndex = -1;
     for (const entry of entries) {
-        if (entry.index > highestIndex) {
-            highestIndex = entry.index;
+        if (entry.id > highestIndex) {
+            highestIndex = entry.id;
         }
     }
     return highestIndex;

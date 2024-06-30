@@ -9,7 +9,6 @@ generator client {
 
 model Agent {
   id     Int    @id @default(autoincrement())
-  index  Int
   gender String
   color  String
   name   String
@@ -18,7 +17,6 @@ model Agent {
 
 model ChatEntry {
   id        Int      @id @default(autoincrement())
-  index     Int
   sender    Int?
   receiver  Int?
   message   String
@@ -27,7 +25,6 @@ model ChatEntry {
 
 model Conversation {
   id        Int      @id @default(autoincrement())
-  index     Int
   agents    Int[]
   entries   Json[]
   timestamp DateTime @default(now())

@@ -26,9 +26,9 @@ export async function runAnalysisWorkflow(symbol: string) {
 
   // Save Chat Entry to Database
   const chatEntry: ChatEntry = {
-    index: await getHighestChatEntryIndex() + 1,
-    sender: agent.index,
-    receiver: undefined,
+    id: await getHighestChatEntryIndex() + 1,
+    sender: agent.id,
+    receiver: null, 
     message: response.response,
     timestamp: new Date(),
   };
