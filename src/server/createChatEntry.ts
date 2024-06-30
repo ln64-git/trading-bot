@@ -3,8 +3,8 @@ import { ChatEntry } from '@/types/types';
 
 const prisma = new PrismaClient();
 
-export default async function addChatEntry(
-    entry: ChatEntry
+export default async function createChatEntry(
+    entry: Omit<ChatEntry, 'id'>
 ): Promise<ChatEntry> {
     try {
         const newChatEntry = await prisma.chatEntry.create({

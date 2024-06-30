@@ -3,17 +3,20 @@ import { AppAgent, DatabaseAgent } from '@/types/types';
 
 const prisma = new PrismaClient();
 
-export default async function addDatabaseAgent(agent: AppAgent): Promise<DatabaseAgent> {
+export default async function createDatabaseAgent(agent: AppAgent): Promise<DatabaseAgent> {
     try {
-        const { gender, color, name, role } = agent;
+        // Map gender values from AppAgent to DatabaseAgent
+        const mappedGender = agent.gender === 'male' ? 'MALE' : 'FEMALE';
+
         const newAgent = await prisma.databaseAgent.create({
             data: {
-                gender,
-                color,
-                name,
-                role,
+                gender: mappedGender, // Use the mapped gender value
+                color: agent.color,
+                name: agent.name,
+                role: agent.role,
             },
         }) as DatabaseAgent; // Cast the result to DatabaseAgent
+
         return newAgent;
     } catch (error) {
         console.error('Error adding agent:', error);

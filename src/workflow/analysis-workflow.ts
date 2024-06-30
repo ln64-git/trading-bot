@@ -1,16 +1,16 @@
 "use server"
-import { PrismaClient } from '@prisma/client';
 import { AgentExecutor } from 'langchain/agents';
 import { createAgent } from './agents/agent';
-import addDatabaseAgent from '@/server/addDatabaseAgent';
-import { getHighestChatEntryIndex } from '@/server/utils/getHighestIndex';
-import { AppAgent, ChatEntry } from '@/types/types';
-import { addConversation } from '@/server/addConversation';
+import { } from '@prisma/client';
+import createDatabaseAgent from '@/server/createDatabaseAgent';
+import { createConversation } from '@/server/createConversation';
+import { AppAgent, ChatEntryPrototype } from '@/types/types';
+import createChatEntry from '@/server/createChatEntry';
 
-export async function runAnalysisWorkflow(symbol: string) {
+export async function runWorkflow(symbol: string) {
   // Initialize Agent
   const agent = await createAgent();
-  await addDatabaseAgent(agent);
+  await createDatabaseAgent(agent);
 
   // Define tasks for agents
   const tasks = [
@@ -25,11 +25,11 @@ export async function runAnalysisWorkflow(symbol: string) {
     }
   ];
 
-  // Initialize Workflow
-  await startWorkflow(tasks);
+  // Execute tasks
+  await executeTasks(tasks);
 }
 
-export async function startWorkflow(tasks: { agent: AppAgent, instructions: { input: string, url: string, response: string, agent_scratchpad: string } }[]) {
+export async function executeTasks(tasks: { agent: AppAgent, instructions: { input: string, url: string, response: string, agent_scratchpad: string } }[]) {
   for (const task of tasks) {
     const { agent, instructions } = task;
 
@@ -38,31 +38,26 @@ export async function startWorkflow(tasks: { agent: AppAgent, instructions: { in
       agent: agent.agent,
       tools: []
     });
-
     const response = await agentExecutor.invoke(instructions);
-    console.log(response);
 
-    // Get highest chat entry index
-    const highestIndex = await getHighestChatEntryIndex();
+    // Parse entry from response
+    const entry = await parseEntryFromResponse(agent, response.output);
 
-    // New Chat Entry data
-    const newEntry: ChatEntry = {
-      id: highestIndex + 1,
-      sender: agent.id,
-      receiver: null,
-      message: response.response,
-      timestamp: new Date(),
-    };
+    // Ensure the agent exists in the database before creating the conversation
+    const databaseAgent = await createDatabaseAgent(agent);
 
-    // Create a new conversation for each agent
-    const entries = [{
-      sender: newEntry.sender,
-      receiver: newEntry.receiver,
-      message: newEntry.message,
-      timestamp: newEntry.timestamp,
-    }];
-
-    const newConversation = await addConversation([agent.id], entries);
-    console.log('New conversation created:', newConversation);
+    // Create conversation and chat entry
+    await createConversation([databaseAgent.id], [entry]);
+    // await createChatEntry(entry);
+    console.log('Created conversation in database.');
   }
+}
+
+async function parseEntryFromResponse(agent: AppAgent, message: string): Promise<ChatEntryPrototype> {
+  return {
+    sender: agent.id,
+    receiver: null,
+    message: message,
+    timestamp: new Date(),
+  };
 }

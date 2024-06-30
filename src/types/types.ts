@@ -1,6 +1,8 @@
-import { AgentStep, AgentAction, AgentFinish } from "langchain/agents";
+import { AgentAction, AgentFinish, AgentStep } from "langchain/agents";
 import { AgentRunnableSequence } from "node_modules/langchain/dist/agents/agent";
 
+export type Gender = 'MALE' | 'FEMALE';
+export type DatabaseGender = 'MALE' | 'FEMALE';
 export type AgentInstance = AgentRunnableSequence<{ steps: AgentStep[] }, AgentAction | AgentFinish>;
 
 export interface DatabaseAgent {
@@ -8,11 +10,26 @@ export interface DatabaseAgent {
   name: string;
   role: string;
   color: string;
-  gender: "male" | "female";
+  gender: DatabaseGender;
+}
+
+export interface DatabaseAgentPrototype {
+  name: string;
+  role: string;
+  color: string;
+  gender: DatabaseGender;
 }
 
 export interface AppAgent {
   id: number;
+  gender: "male" | "female";
+  color: string;
+  name: string;
+  role: string;
+  agent: AgentInstance;
+}
+
+export interface AppAgentPrototype {
   gender: "male" | "female";
   color: string;
   name: string;
@@ -28,8 +45,20 @@ export interface ChatEntry {
   timestamp: Date;
 }
 
+export interface ChatEntryPrototype {
+  sender: number | null;
+  receiver: number | null;
+  message: string;
+  timestamp: Date;
+}
+
 export interface Conversation {
   id: number;
+  agents: number[];
+  entries: any[];
+  timestamp: Date;
+}
+export interface ConversationPrototype {
   agents: number[];
   entries: any[];
   timestamp: Date;

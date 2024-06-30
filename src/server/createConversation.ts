@@ -1,8 +1,9 @@
+import { ChatEntryPrototype } from '@/types/types';
 import { PrismaClient, Conversation } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-export async function addConversation(agentIds: number[], entryData: { sender: number | null, receiver: number | null, message: string, timestamp: Date }[]): Promise<Conversation> {
+export async function createConversation(agentIds: number[], entryData: ChatEntryPrototype[]): Promise<Conversation> {
     try {
         const newConversation = await prisma.conversation.create({
             data: {
@@ -25,4 +26,3 @@ export async function addConversation(agentIds: number[], entryData: { sender: n
         throw error;
     }
 }
-

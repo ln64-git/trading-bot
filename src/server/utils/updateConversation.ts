@@ -1,10 +1,10 @@
-"use server"
-import { PrismaClient } from '@prisma/client';
+// File: updateConversation.ts
 import { ChatEntry } from '@/types/types';
+import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-export async function updateConversation(conversationId: number, newEntry: ChatEntry, agentId: number) {
+export async function updateConversation(conversationId: number, newEntry: ChatEntry, agentId: number): Promise<void> {
     try {
         // Save new Chat Entry to Database
         const chatEntry = await prisma.chatEntry.create({
@@ -12,13 +12,13 @@ export async function updateConversation(conversationId: number, newEntry: ChatE
                 sender: newEntry.sender,
                 receiver: newEntry.receiver,
                 message: newEntry.message,
-                timestamp: new Date(),
+                timestamp: newEntry.timestamp,
                 conversationId: conversationId
             },
         });
 
         // Update Conversation to include new Chat Entry and link to existing Agent
-        const updatedConversation = await prisma.conversation.update({
+        await prisma.conversation.update({
             where: { id: conversationId },
             data: {
                 entries: {
@@ -28,15 +28,9 @@ export async function updateConversation(conversationId: number, newEntry: ChatE
                     connect: { id: agentId },
                 },
             },
-            include: {
-                agents: true,
-                entries: true,
-            },
         });
 
-        console.log(updatedConversation);
-
-        return updatedConversation;
+        console.log(`Updated conversation ${conversationId} with new entry ${chatEntry.id}`);
     } catch (error) {
         console.error('Error updating conversation:', error);
         throw error;
