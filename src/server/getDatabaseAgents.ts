@@ -5,7 +5,7 @@ const prisma = new PrismaClient();
 
 export default async function getDatabaseAgents(): Promise<DatabaseAgent[]> {
     try {
-        const agents = await prisma.agent.findMany();
+        const agents = await prisma.databaseAgent.findMany();
         return agents.map(agent => ({
             ...agent,
             gender: agent.gender as "male" | "female"

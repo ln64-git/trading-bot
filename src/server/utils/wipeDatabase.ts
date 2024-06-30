@@ -5,7 +5,7 @@ const prisma = new PrismaClient();
 
 export async function wipeDatabase() {
     try {
-        await prisma.agent.deleteMany();
+        await prisma.databaseAgent.deleteMany();
         await prisma.chatEntry.deleteMany();
         await prisma.conversation.deleteMany();
         console.log('Database wiped successfully.');

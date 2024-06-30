@@ -6,7 +6,7 @@ const prisma = new PrismaClient();
 export default async function addDatabaseAgent(agent: AppAgent): Promise<DatabaseAgent> {
     try {
         const { gender, color, name, role } = agent;
-        const newAgent = await prisma.agent.create({
+        const newAgent = await prisma.databaseAgent.create({
             data: {
                 gender,
                 color,

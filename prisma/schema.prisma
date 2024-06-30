@@ -7,7 +7,7 @@ generator client {
   provider = "prisma-client-js"
 }
 
-model Agent {
+model DatabaseAgent {
   id     Int    @id @default(autoincrement())
   gender String
   color  String
