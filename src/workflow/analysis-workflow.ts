@@ -1,4 +1,4 @@
-"use server"
+"use server";
 import { AgentExecutor } from 'langchain/agents';
 import { createAgent } from './agents/agent';
 import { AppAgent, ChatEntryPrototype } from '@/types/types';
@@ -30,6 +30,9 @@ export async function runWorkflow(symbol: string) {
 export async function executeTasks(tasks: { agent: AppAgent, instructions: { input: string, url: string, response: string, agent_scratchpad: string } }[]) {
   for (const task of tasks) {
     const { agent, instructions } = task;
+
+    // Log agentInstance to debug
+    console.log('Executing task with agent:', agent);
 
     // Initialize Agent Execution
     const agentExecutor = new AgentExecutor({

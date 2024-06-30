@@ -119,8 +119,8 @@ export default function FemaleIcon({ color }: { color: string }) {
         y2="3.235"
         gradientUnits="userSpaceOnUse"
       >
-        <stop offset="0" stopColor="ivory" stop-opacity=".3"></stop>
-        <stop offset="1" stopColor={colorGradient[1]} stop-opacity=".4"></stop>
+        <stop offset="0" stopColor="ivory" stopOpacity=".3"></stop>
+        <stop offset="1" stopColor={colorGradient[1]} stopOpacity=".4"></stop>
       </linearGradient>
       <path
         fill={`url(#${gradientId3})`}

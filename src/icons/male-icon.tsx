@@ -104,8 +104,8 @@ export default function MaleIcon({ color }: { color: string }) {
         y2="-.326"
         gradientUnits="userSpaceOnUse"
       >
-        <stop offset="0" stopColor={colorGradient[0]} stop-opacity=".4"></stop>
-        <stop offset="1" stopColor={colorGradient[1]} stop-opacity=".3"></stop>
+        <stop offset="0" stopColor={colorGradient[0]} stopOpacity=".4"></stop>
+        <stop offset="1" stopColor={colorGradient[1]} stopOpacity=".3"></stop>
       </linearGradient>
       <path
         fill={`url(#${gradientId2})`}

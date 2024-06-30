@@ -38,7 +38,7 @@ export async function createAgent(): Promise<AppAgent> {
         color,
         name,
         role,
-        agent: agentInstance
+        agentInstance: agentInstance
     };
 
     return newAgent;
