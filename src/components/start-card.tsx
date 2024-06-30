@@ -10,14 +10,21 @@ export default function StartCard() {
 
   const handleClick = async () => {
     try {
-      // await wipeDatabase();
       await runWorkflow("AAPL");
-      console.log("Click Handled.");
+      console.log("Workflow initalized.");
     } catch (error) {
       console.error("Error running analysis workflow:", error);
     }
   };
 
+  const handleCog = async () => {
+    try {
+      await wipeDatabase();
+      console.log("Database wiped.");
+    } catch (error) {
+      console.error("Error running analysis workflow:", error);
+    }
+  };
   return (
     <div className="flex mx-2 items-center justify-center h-full">
       <div className="flex my-2 items-center w-full space-x-2 relative">
@@ -37,7 +44,9 @@ export default function StartCard() {
           </div>
         </button>
         {isOpen && (
-          <button className="w-12 h-12 p-3 bg-gray-600 bg-opacity-10 text-gray-400 hover:text-gray-300 rounded-lg shadow-lg hover:bg-gray-600 hover:bg-opacity-10 transition ease-in-out duration-300 transform hover:scale-105 flex items-center justify-center">
+          <button
+            onClick={handleCog}
+            className="w-12 h-12 p-3 bg-gray-600 bg-opacity-10 text-gray-400 hover:text-gray-300 rounded-lg shadow-lg hover:bg-gray-600 hover:bg-opacity-10 transition ease-in-out duration-300 transform hover:scale-105 flex items-center justify-center">
             <CogIcon />
           </button>
         )}
