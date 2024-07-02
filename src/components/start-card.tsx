@@ -2,7 +2,7 @@ import React from "react";
 import useSidebarStore from "@/store/store";
 import PlayIcon from "../icons/play-icon";
 import CogIcon from "@/icons/cog-icon";
-import { runWorkflow } from "@/workflow/analysis-workflow";
+import { runWorkflow } from "@/langchain/workflow/analysis-workflow";
 import { wipeDatabase } from "@/server/utils/wipeDatabase";
 
 export default function StartCard() {

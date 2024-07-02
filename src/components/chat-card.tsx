@@ -1,26 +1,26 @@
+// ChatCard Component
+
 "use client";
+import React from "react";
 import useSidebarStore from "@/store/store";
-import React, { useEffect, useState } from "react";
-import MaleIcon from "../icons/male-icon";
-import FemaleIcon from "../icons/female-icon";
-import { ChatEntry, DatabaseAgent, ParsedConversation } from "@/types/types";
+import { ChatEntry, ParsedConversation } from "@/types/types";
+import { useRouter } from "next/navigation";
+import MaleIcon from "@/icons/male-icon";
+import FemaleIcon from "@/icons/female-icon";
 
-interface ChatCardProps {
-  data: ParsedConversation[];
-}
-
-export default function ChatCard({ data }: ChatCardProps) {
+export default function ChatCard({ id, agents = [], chatEntries = [] }: ParsedConversation) {
   const isOpen = useSidebarStore((state) => state.isOpen);
+  const router = useRouter();
 
-  // Extract the participants and the latest chat entry from the data
-  const agents: DatabaseAgent[] = data.length > 0 ? data[0].agents : [];
-  const latestChatEntry: ChatEntry | undefined = data.length > 0 && data[0].chatEntries.length > 0
-    ? data[0].chatEntries[data[0].chatEntries.length - 1]
+  // Extract the latest chat entry from the data
+  const latestChatEntry: ChatEntry | undefined = chatEntries.length > 0
+    ? chatEntries[chatEntries.length - 1]
     : undefined;
 
   return (
     <div className="flex h-full overflow-hidden">
       <button
+        onClick={() => { router.push(`/` + id.toString()) }}
         className={`relative h-[68px] bg-gray-600 bg-opacity-10 text-gray-400 hover:text-gray-300 font-semibold rounded-lg shadow-lg hover:bg-gray-500 hover:bg-opacity-10 focus:outline-none transition ease-in-out duration-300 transform hover:scale-105 w-full mx-2 flex items-center`}
       >
         <div className={`absolute w-14 left-0 top-0 h-full flex justify-center items-center`}>
@@ -38,7 +38,7 @@ export default function ChatCard({ data }: ChatCardProps) {
               <p className="text-left text-[.85em] whitespace-nowrap overflow-hidden text-ellipsis">
                 {agents[0].name}
               </p>
-              <p className="text-left text-xs  overflow-hidden text-ellipsis">
+              <p className="text-left text-xs overflow-hidden text-ellipsis">
                 {agents[0].role}
               </p>
               {latestChatEntry && (

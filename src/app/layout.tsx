@@ -29,13 +29,11 @@ export default async function RootLayout({
       const relevantChatEntries = chatEntries.filter(
         (entry) => entry.conversationId === conversation.id
       );
-      const relevantAgents = conversation.agents.map((agent) =>
-        databaseAgents.find((dbAgent: DatabaseAgent) => dbAgent.id === agent.id)
-      ).filter((agent): agent is DatabaseAgent => agent !== undefined);
+      const relevantAgentIds = conversation.agents;
 
       return {
         id: conversation.id,
-        agents: relevantAgents,
+        agents: relevantAgentIds,
         chatEntries: relevantChatEntries,
       };
     });
@@ -46,8 +44,6 @@ export default async function RootLayout({
     databaseAgents,
     conversations
   );
-
-  console.log("conversationData: ", conversationData);
 
   return (
     <html lang="en">

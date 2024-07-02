@@ -1,6 +1,6 @@
 "use server";
 import { AgentExecutor } from 'langchain/agents';
-import { createAgent } from './agents/agent';
+import { createAgent } from '../agents/agent';
 import { AppAgent, ChatEntryPrototype } from '@/types/types';
 import createDatabaseAgent from '@/server/createDatabaseAgent';
 import { createConversation } from '@/server/createConversation';
